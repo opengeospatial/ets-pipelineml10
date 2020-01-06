@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PMLDataset xmlns="http://pipelineml.org/pml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:pml="http://pipelineml.org/pml" xsi:schemaLocation="http://pipelineml.org/pml http://pipelineml.org/pml/1.0/component.xsd">
+<pml:datasetID>id4CA32A7E-B9E2-E811-80F3-38EAA735D691</pml:datasetID>
+    <pml:dateTime>2018-11-07T18:18:15.833</pml:dateTime>
+    <pml:PMLVersion>1.0</pml:PMLVersion>
+    <pml:defaultCRS>WGS84 (EPSG:4326)</pml:defaultCRS>
+	<pml:component><pml:Linepipe gml:id="idCC170AE5-0AD2-E811-80F7-C6D04130012E"/></pml:component>
+</PMLDataset>
