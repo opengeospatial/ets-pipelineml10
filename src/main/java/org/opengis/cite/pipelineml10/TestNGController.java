@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 
 import org.opengis.cite.pipelineml10.util.TestSuiteLogger;
+import org.opengis.cite.pipelineml10.util.XMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -32,6 +34,8 @@ public class TestNGController implements TestSuiteController {
 
     private TestRunExecutor executor;
     private Properties etsProperties = new Properties();
+    private final static Logger LOGR = Logger.getLogger(TestNGController.class
+        .getName());
 
     /**
      * A convenience method for running the test suite using a command-line
@@ -67,9 +71,6 @@ public class TestNGController implements TestSuiteController {
             System.out.println(px.getMessage());
             cmd.usage();
         }
-        if (testRunArgs.doDeleteSubjectOnFinish()) {
-            System.setProperty("deleteSubjectOnFinish", "true");
-        }
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         File xmlArgs = testRunArgs.getPropertiesFile();
@@ -84,7 +85,7 @@ public class TestNGController implements TestSuiteController {
      * system property as the root output directory.
      */
     public TestNGController() {
-        this(System.getProperty("java.io.tmpdir"));
+      this(new File(System.getProperty("user.home")).toURI().toString());
     }
 
     /**
@@ -134,6 +135,8 @@ public class TestNGController implements TestSuiteController {
 
     @Override
     public Source doTestRun(Document testRunArgs) throws Exception {
+      LOGR.log(Level.FINE, "Entering doTestRun with arguments:\n {0}",
+          XMLUtils.writeNodeToString(testRunArgs));
         validateTestRunArgs(testRunArgs);
         return executor.execute(testRunArgs);
     }

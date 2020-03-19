@@ -10,12 +10,10 @@
     <listener class-name="org.opengis.cite.pipelineml10.TestFailureListener" />
   </listeners>
 
-  <test name="Conformance Level 1">
-    <packages>
-      <package name="org.opengis.cite.pipelineml10.level1" />
-    </packages>
+  <test name="PML Documents">
     <classes>
-      <class name="org.opengis.cite.pipelineml10.SuitePreconditions" />
+      <class name="org.opengis.cite.pipelineml10.general.XMLSchemaTests" />
+      <class name="org.opengis.cite.pipelineml10.data.XMLSchemaValidationTests" />
     </classes>
   </test>
   <!-- Add test sets for other conformance classes/levels -->

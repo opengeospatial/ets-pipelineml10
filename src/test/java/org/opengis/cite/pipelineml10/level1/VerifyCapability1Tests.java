@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.opengis.cite.pipelineml10.data.XMLSchemaValidationTests;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.testng.ISuite;
@@ -39,34 +41,5 @@ public class VerifyCapability1Tests {
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testIsEmpty() {
-        Capability1Tests iut = new Capability1Tests();
-        iut.isEmpty();
-    }
-
-    @Test
-    public void testTrim() {
-        Capability1Tests iut = new Capability1Tests();
-        iut.trim();
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void supplyNullTestSubject() throws SAXException, IOException {
-        Capability1Tests iut = new Capability1Tests();
-        iut.docIsValidAtomFeed();
-    }
-
-    @Test
-    public void supplyValidAtomFeedViaTestContext() throws SAXException,
-            IOException {
-        Document doc = docBuilder.parse(this.getClass().getResourceAsStream(
-                "/atom-feed.xml"));
-        when(suite.getAttribute(SUBJ)).thenReturn(doc);
-        Capability1Tests iut = new Capability1Tests();
-        iut.obtainTestSubject(testContext);
-        iut.docIsValidAtomFeed();
     }
 }
