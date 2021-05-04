@@ -1,17 +1,21 @@
 package org.opengis.cite.pipelineml10;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
+import java.io.File;
 import java.net.URI;
 import java.util.Map;
+
 import javax.ws.rs.core.MediaType;
+
 import org.opengis.cite.pipelineml10.util.ClientUtils;
 import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.w3c.dom.Document;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientRequest;
+import com.sun.jersey.api.client.ClientResponse;
 
 /**
  * A supporting base class that sets up a common test fixture. These
@@ -35,6 +39,8 @@ public class CommonFixture {
      * An HTTP response message.
      */
     protected ClientResponse response;
+    
+	protected File dataFile;
 
     /**
      * Initializes the common test fixture with a client component for 
@@ -45,13 +51,10 @@ public class CommonFixture {
      */
     @BeforeClass
     public void initCommonFixture(ITestContext testContext) {
-        Object obj = testContext.getSuite().getAttribute(SuiteAttribute.CLIENT.getName());
-        if (null != obj) {
-            this.client = Client.class.cast(obj);
-        }
-        obj = testContext.getSuite().getAttribute(SuiteAttribute.TEST_SUBJECT.getName());
-        if (null == obj) {
-            throw new SkipException("Test subject not found in ITestContext.");
+    	this.dataFile = (File) testContext.getSuite().getAttribute(
+				SuiteAttribute.PML.getName());
+        if (null == this.dataFile) {
+            throw new SkipException("No PML data to validate.");
         }
     }
 
@@ -95,5 +98,4 @@ public class CommonFixture {
             Map<String, String> qryParams, MediaType... mediaTypes) {
         return ClientUtils.buildGetRequest(endpoint, qryParams, mediaTypes);
     }
-
 }

@@ -4,6 +4,8 @@ import com.sun.jersey.api.client.Client;
 
 import java.io.File;
 
+import javax.xml.validation.Schema;
+
 import org.w3c.dom.Document;
 
 /**
@@ -24,7 +26,17 @@ public enum SuiteAttribute {
     /**
      * A File containing the test subject or a description of it.
      */
-    TEST_SUBJ_FILE("testSubjectFile", File.class);
+    TEST_SUBJ_FILE("testSubjectFile", File.class),
+    /**
+     * A File containing PML data.
+     */
+    PML("pml-data", File.class),
+    /**
+     * An immutable XML Schema object representing a set of constraints defined
+     * in some grammar-based schema language.
+     */
+    SCHEMA("schema", Schema.class);
+	
     private final Class attrType;
     private final String attrName;
 

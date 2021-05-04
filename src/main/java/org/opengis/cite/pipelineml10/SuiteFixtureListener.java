@@ -9,10 +9,8 @@ import java.util.logging.Level;
 import org.opengis.cite.pipelineml10.util.ClientUtils;
 import org.opengis.cite.pipelineml10.util.TestSuiteLogger;
 import org.opengis.cite.pipelineml10.util.URIUtils;
-import org.opengis.cite.pipelineml10.util.XMLUtils;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
-import org.w3c.dom.Document;
 
 import com.sun.jersey.api.client.Client;
 
@@ -71,18 +69,16 @@ public class SuiteFixtureListener implements ISuiteListener {
         TestSuiteLogger.log(Level.FINE, String.format("Wrote test subject to file: %s (%d bytes)",
                 entityFile.getAbsolutePath(), entityFile.length()));
         suite.setAttribute(SuiteAttribute.TEST_SUBJ_FILE.getName(), entityFile);
-        Document iutDoc = null;
+        File pmlFile = null;
         try {
-            iutDoc = URIUtils.parseURI(entityFile.toURI());
+            pmlFile = URIUtils.dereferenceURI(entityFile.toURI());
         } catch (Exception x) {
             throw new RuntimeException("Failed to parse resource retrieved from " + iutRef, x);
         }
-        suite.setAttribute(SuiteAttribute.TEST_SUBJECT.getName(), iutDoc);
+        suite.setAttribute(SuiteAttribute.PML.getName(), pmlFile);
         if (TestSuiteLogger.isLoggable(Level.FINE)) {
-            StringBuilder logMsg = new StringBuilder("Parsed resource retrieved from ");
-            logMsg.append(iutRef).append("\n");
-            logMsg.append(XMLUtils.writeNodeToString(iutDoc));
-            TestSuiteLogger.log(Level.FINE, logMsg.toString());
+        	TestSuiteLogger.log(Level.FINE, "Wrote GML document to "
+					+ pmlFile.getAbsolutePath());
         }
     }
 
